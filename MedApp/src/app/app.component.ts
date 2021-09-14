@@ -14,10 +14,12 @@ export class AppComponent {
   pageMed: boolean = false;
   practitioner: any = {};
   patient: any = {};
+  observationpatients: any={};
 
 constructor(private http: HttpClient){
   this.getPractitioner();
   this.getPatient();
+  this.getObservation();
 }
 
 
@@ -26,5 +28,8 @@ getPractitioner(){
 }
 getPatient(){
   this.http.get(this.server + '/patient/612e0350a5b46400122dx5081').subscribe(data => { this.patient = data });    
+}
+getObservation(){
+  this.http.get(this.server + '/observation?subject.reference=Patient/612e0350a5b46400122dx508').subscribe(data => { this.observationpatients = data });    
 }
 }
