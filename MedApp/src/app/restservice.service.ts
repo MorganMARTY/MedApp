@@ -23,6 +23,10 @@ export class RestserviceService{
 
     public getPractitioner(){
         return this.http.get(this.server + '/practitioner/613f4b25a5b46400122cf50f');
+    }
+    
+    public getPatient(){
+            return this.http.get(this.server + '/patient/612e0350a5b46400122dx508');
 
     }
     public setHeaders(id:string):HttpHeaders{
