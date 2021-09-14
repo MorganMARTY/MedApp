@@ -22,5 +22,4 @@ constructor(private http: HttpClient){
 getPractitioner(){
   this.http.get(this.server + '/practitioner/613f4b25a5b46400122cf50f').subscribe(data => { this.practitioner = data });    
 }
-
 }
