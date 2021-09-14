@@ -11,6 +11,8 @@
             <ul>
                 <li> {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}} </li>
                 <li>Adresse : {{ practitioner.address[0].line}} {{practitioner.address[0].city}} {{practitioner.address[0].postalCode}} </li>
+                <li>Téléphone : {{ practitioner.telecom[0].value}}</li>
+                <li>Mail : {{ practitioner.telecom[1].value}}</li>
                 <li><button type="button" id="b" color="primary"> modifier </button></li> 
             </ul>
         </div>
