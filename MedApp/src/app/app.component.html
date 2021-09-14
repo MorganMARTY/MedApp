@@ -1,4 +1,19 @@
-fds
-<div *ngIf="practitioner">{{ practitioner.id }}</div>
-  
+<div *ngIf="practitioner">
+    {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}}
+    <button type="button" id="b" color="primary" (click)="pageMed = true"> + </button>
+    
+</div>
 
+<!--Page médecin -->
+<div *ngIf="pageMed == true" class="modal">
+    <div><h1> Mes informations: </h1>
+        <div *ngIf="practitioner">
+            <ul>
+                <li> {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}} </li>
+                <li>Adresse : {{ practitioner.address[0].line}} {{practitioner.address[0].city}} {{practitioner.address[0].postalCode}} </li>
+                <li><button type="button" id="b" color="primary"> modifier </button></li> 
+            </ul>
+        </div>
+        <button id="button" mat-raisedbutton color="primary" (click)="pageMed = false">Close</button>
+    </div>
+</div>

@@ -11,8 +11,8 @@ import { RestserviceService } from './restservice.service';
 export class AppComponent {
   title = 'MedApp';
   server = "https://fhir.eole-consulting.io/api";
-
-  practitioner: any={};
+  pageMed: boolean = false;
+  practitioner: any = {};
 
 constructor(private http: HttpClient){
   this.getPractitioner();
