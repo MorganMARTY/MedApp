@@ -28,7 +28,7 @@
 </div>
 
 <!-- Planning -->
-<div *ngFor= "let appointment of appointmentmed">
+<div *ngIf= "appointmentmed">
     <table>
         <thead>
             <tr>
@@ -37,11 +37,52 @@
             </tr>
         </thead>
         <tbody>
+            <div *ngFor= "let appointment of appointmentmed">
             <tr>
                 <td> {{ appointment.start }} </td>
-                <td> {{ appointment.participant[0].actor.display }}</td>
+                <td> {{ appointment.participant[0].actor.display }} </td>
+                <td (click)="pagePat(appointment.participant[0].actor.reference)" (click)="pagePatient = true" > {{ appointment.participant[0].actor.reference }} </td>
                 <td> {{ appointment.comment }}</td>
+            </tr>
+            </div>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Page patient -->
+<div *ngIf="pagePatient == true" class="modal">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"><h1> Informations patient: </h1>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                        <div *ngIf="patient">
+                            <ul>
+                                <li> Nom : {{ this.p.name[0].family }}  </li>
+                                <li> Prénom : {{ this.p.name[0].given }} </li>
+                                <li> Genre: : {{ this.p.gender }} </li>
+                                <li> Adresse: : {{ this.p.address[0].line }} {{ this.p.address[0].city }} {{ this.p.address[0].postalCode }} </li>
+                                <li> Date de naissance : {{ this.p.birthDate }}</li>
+                                <li> Téléphone : {{ this.p.telecom[0].value }}</li>
+                                <li> Mail : {{ this.p.telecom[1].value }}</li>
+                                <li><button type="button" id="b" color="primary"> modifier </button></li>
+                            </ul>
+                        </div>
+                </td>
+                <td><h1>Observations sur le patient:</h1></td>
+            </tr>
+            <tr>
+                <td>Commentaire sur le rendez-vous: </td>
+                
             </tr>
         </tbody>
     </table>
+<button id="button" mat-raisedbutton color="primary" (click)="pagePatient = false">Close</button>
 </div>
