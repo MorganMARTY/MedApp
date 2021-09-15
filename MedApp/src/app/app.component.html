@@ -27,28 +27,53 @@
     </div>
 </div>
 
+
 <!-- Planning -->
-<div *ngIf= "appointmentmed">
+<div>
     <table>
         <thead>
             <tr>
-                <th colspan="2"><h1> Mes rendez-vous du jour :  </h1>
+                <th colspan="2">
+                    <h1> Mes rendez-vous du jour : </h1>
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <div *ngFor= "let appointment of appointmentmed">
+        <tbody *ngFor="let appointment of appointmentmed">
             <tr>
                 <td> {{ appointment.start }} </td>
-                <td> {{ appointment.participant[0].actor.display }} </td>
-                <td (click)="pagePat(appointment.participant[0].actor.reference)" (click)="pagePatient = true" > {{ appointment.participant[0].actor.reference }} </td>
+                <td> {{ appointment.participant[0].actor.display }}</td>
                 <td> {{ appointment.comment }}</td>
             </tr>
-            </div>
         </tbody>
     </table>
 </div>
 
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Observation code 
+                </th>
+                <th >
+                    Observation definition 
+                </th>
+                <th >
+                    Observation date 
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let obs of observationpatients">
+            <tr>
+                <td> <input type="text" name="code" [(ngModel)]="obs.code.coding[0].display"></td>
+                <td> <input type="text" name="definition" [(ngModel)]="obs.valueString"></td>
+                <td> <input type="text" name="date" [(ngModel)]="obs.effectiveDateTime"></td>
+                <td><button (click)="putObservation(obs)"> Modifier</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
 
 
 <!-- Page patient -->

@@ -46,7 +46,11 @@ export class AppComponent {
     console.log("response", this.practitioner);
   }
 
-pagePat(referencePatient: string) {
+  pagePat(referencePatient: string) {
     this.http.get(this.server + '/'+ referencePatient.toLowerCase()).subscribe(data => { this.p = data });
+  }
+
+  putObservation(obs: any){
+    this.http.put(this.server + '/observation/'+obs.id, obs).subscribe(data => { this.getObservation(); });
   }
 }
