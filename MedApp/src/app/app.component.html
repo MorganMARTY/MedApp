@@ -1,83 +1,95 @@
-<div *ngIf="practitioner">
+<body>
+<div class="header" *ngIf="practitioner">
     {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}}
-    <button type="button" id="b" color="primary" (click)="pageMed = true"> + </button>
+    <button class="button" type="button" id="b" color="primary" (click)="pageMed = true"> + </button>
+    Medapp
 
 </div>
 
 <!--Page médecin -->
-<div *ngIf="pageMed == true" class="modal">
-    <div>
-        <h1> Mes informations: </h1>
-        <div *ngIf="practitioner">
-            <form>
-                Prefixe : <input type="text" name="prefixe" [(ngModel)]="practitioner.name[0].prefix[0]"><br>
-                Nom : <input type="text" name="family" [(ngModel)]="practitioner.name[0].family"><br>
-                Prénom : <input type="text" name="given" [(ngModel)]="practitioner.name[0].given[0]"><br>
-                Deuxième Prénom : <input type="text" name="givensecond" [(ngModel)]="practitioner.name[0].given[1]"><br>
-                Adresse : <input type="text" name="address" [(ngModel)]="practitioner.address[0].line[0]"><br>
-                Code postal : <input type="text" name="postalcode" [(ngModel)]="practitioner.address[0].postalCode"><br>
-                Ville : <input type="text" name="city" [(ngModel)]="practitioner.address[0].city"><br>
-                Téléphone : <input type="text" name="telephone" [(ngModel)]="practitioner.telecom[0].value"><br>
-                Mail : <input type="text" name="mail" [(ngModel)]="practitioner.telecom[1].value"><br>
 
-                <button (click)="putPractitioner()"> Modifier</button>
-            </form>
-        </div>
-        <button id="button" mat-raisedbutton color="primary" (click)="pageMed = false">Close</button>
-    </div>
+<div *ngIf="pageMed == true" class="modal" class="main">
+    <div class="tabmed">
+    <table>
+        <tr>
+            <th colspan="2">
+                <h1> Mes informations : </h1>
+            </th>
+        </tr>
+        <tr>
+            <td>Prefixe : </td> 
+            <td><input type="text" name="prefixe" [(ngModel)]="practitioner.name[0].prefix[0]"><br></td>
+        </tr>
+        <tr>
+            <td>Nom : </td>
+            <td><input type="text" name="family" [(ngModel)]="practitioner.name[0].family"><br></td>
+        </tr>
+        <tr>
+            <td>Prénom :</td> 
+            <td><input type="text" name="given" [(ngModel)]="practitioner.name[0].given[0]"><br></td>
+        </tr>
+        <tr>
+            <td>Deuxième Prénom :</td> 
+            <td><input type="text" name="givensecond" [(ngModel)]="practitioner.name[0].given[1]"><br></td>
+        </tr>
+        <tr>
+            <td>Adresse :</td>
+            <td> <input type="text" name="address" [(ngModel)]="practitioner.address[0].line[0]"><br></td>
+        </tr>
+        <tr>
+            <td>Code postal :</td> 
+            <td><input type="text" name="postalcode" [(ngModel)]="practitioner.address[0].postalCode"><br></td>
+        </tr>
+        <tr>
+            <td>Ville : </td>
+            <td><input type="text" name="city" [(ngModel)]="practitioner.address[0].city"><br></td>
+        </tr>
+        <tr>
+            <td>Téléphone :</td> 
+            <td><input type="text" name="telephone" [(ngModel)]="practitioner.telecom[0].value"><br></td>
+        </tr>
+        <tr>
+            <td>Mail :</td> 
+            <td><input type="text" name="mail" [(ngModel)]="practitioner.telecom[1].value"><br>
+            </td>
+        </tr>
+        <button class="button" (click)="putPractitioner()"> Modifier</button>
+        <button class="button" id="button" mat-raisedbutton color="primary" (click)="pageMed = false">Close</button>
+    </table>
+</div>
 </div>
 
 
 <!-- Planning -->
-<div>
-    <table>
+<div *ngIf= "appointmentmed" class="main">
+    <table  *ngIf="pageMed != true" class="tableau">
         <thead>
             <tr>
                 <th colspan="2">
                     <h1> Mes rendez-vous du jour : </h1>
                 </th>
             </tr>
+            <tr class="titreT">
+                <td> Date + Horaire</td>
+                <td> Patient</td>
+                <td> Commentaire</td>
+            </tr>
         </thead>
         <tbody *ngFor="let appointment of appointmentmed">
             <tr>
                 <td> {{ appointment.start }} </td>
-                <td> {{ appointment.participant[0].actor.display }}</td>
+                <td class="case" (click)="pagePat(appointment.participant[0].actor.reference)" (click)="pagePatient = true"> {{ appointment.participant[0].actor.display }} </td>
                 <td> {{ appointment.comment }}</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Observation code 
-                </th>
-                <th >
-                    Observation definition 
-                </th>
-                <th >
-                    Observation date 
-                </th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let obs of observationpatients">
-            <tr>
-                <td> <input type="text" name="code" [(ngModel)]="obs.code.coding[0].display"></td>
-                <td> <input type="text" name="definition" [(ngModel)]="obs.valueString"></td>
-                <td> <input type="text" name="date" [(ngModel)]="obs.effectiveDateTime"></td>
-                <td><button (click)="putObservation(obs)"> Modifier</button></td>
-            </tr>
-        </tbody>
-    </table>
-    
-</div>
+
 
 
 <!-- Page patient -->
-<div *ngIf="pagePatient == true" class="modal">
+<div *ngIf="pagePatient == true" class="modal" class="main">
     <table>
         <thead>
             <tr>
@@ -87,9 +99,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>
+                <td><h1> Informations générales du patient: </h1>
                         <div *ngIf="patient">
-                            <ul>
+                            <ul class="patient">
                                 <li> Nom : {{ this.p.name[0].family }}  </li>
                                 <li> Prénom : {{ this.p.name[0].given }} </li>
                                 <li> Genre: : {{ this.p.gender }} </li>
@@ -97,17 +109,45 @@
                                 <li> Date de naissance : {{ this.p.birthDate }}</li>
                                 <li> Téléphone : {{ this.p.telecom[0].value }}</li>
                                 <li> Mail : {{ this.p.telecom[1].value }}</li>
-                                <li><button type="button" id="b" color="primary"> modifier </button></li>
+                                <li><button class="button" type="button" id="b" color="primary"> modifier </button></li>
                             </ul>
                         </div>
                 </td>
-                <td><h1>Observations sur le patient:</h1></td>
+                <td><h1>Observations sur le patient:</h1>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Observation code 
+                                </th>
+                                <th >
+                                    Observation definition 
+                                </th>
+                                <th >
+                                    Observation date 
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let obs of observationpatients">
+                            <tr>
+                                <td> <input type="text" name="code" [(ngModel)]="obs.code.coding[0].display"></td>
+                                <td> <input type="text" name="definition" [(ngModel)]="obs.valueString"></td>
+                                <td> <input type="text" name="date" [(ngModel)]="obs.effectiveDateTime"></td>
+                                <td><button class="button" (click)="putObservation(obs)"> Modifier</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+
             </tr>
             <tr>
-                <td>Commentaire sur le rendez-vous: </td>
-                
+                <td><h1>Commentaire sur le rendez-vous: </h1></td>                
             </tr>
         </tbody>
     </table>
-<button id="button" mat-raisedbutton color="primary" (click)="pagePatient = false">Close</button>
+<button class="button" id="button" mat-raisedbutton color="primary" (click)="pagePatient = false">Close</button>
 </div>
+
+</body>
