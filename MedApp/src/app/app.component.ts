@@ -15,6 +15,7 @@ export class AppComponent {
   practitioner: any = {};
   patient: any = {};
   observationpatients: any = {};
+  appointmentmed: any = {};
 
   snackBar: any;
 
@@ -22,6 +23,7 @@ export class AppComponent {
     this.getPractitioner();
     this.getPatient();
     this.getObservation();
+    this.getAppointment();
   }
 
 
@@ -34,13 +36,12 @@ export class AppComponent {
   getObservation() {
     this.http.get(this.server + '/observation?subject.reference=Patient/612e0350a5b46400122dx508').subscribe(data => { this.observationpatients = data });
   }
+  getAppointment(){
+    this.http.get(this.server + '/appointment?participant.actor.reference=Practitioner/613f4b25a5b46400122cf50f').subscribe(data => { this.appointmentmed = data });    
+  }
   putPractitioner() {
     console.log("jsonRequest", JSON.stringify(this.practitioner));
     this.http.put(this.server + '/practitioner/613f4b25a5b46400122cf50f', this.practitioner).subscribe(data => { this.practitioner = data });
     console.log("response", this.practitioner);
-    //this.popMessage("Vous avez bien mis à jour vos informations")
   }
- //popMessage(message: string): void {
- //   this.snackBar.open(message, "", { duration: 2000 })
-  //}
 }

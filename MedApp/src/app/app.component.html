@@ -26,6 +26,22 @@
         <button id="button" mat-raisedbutton color="primary" (click)="pageMed = false">Close</button>
     </div>
 </div>
-<div>
 
+<!-- Planning -->
+<div *ngFor= "let appointment of appointmentmed">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"><h1> Mes rendez-vous du jour :  </h1>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> {{ appointment.start }} </td>
+                <td> {{ appointment.participant[0].actor.display }}</td>
+                <td> {{ appointment.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
