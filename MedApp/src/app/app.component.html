@@ -1,21 +1,31 @@
 <div *ngIf="practitioner">
     {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}}
     <button type="button" id="b" color="primary" (click)="pageMed = true"> + </button>
-    
+
 </div>
 
 <!--Page médecin -->
 <div *ngIf="pageMed == true" class="modal">
-    <div><h1> Mes informations: </h1>
+    <div>
+        <h1> Mes informations: </h1>
         <div *ngIf="practitioner">
-            <ul>
-                <li> {{ practitioner.name[0].prefix}} {{ practitioner.name[0].family}} {{ practitioner.name[0].given}} </li>
-                <li>Adresse : {{ practitioner.address[0].line}} {{practitioner.address[0].city}} {{practitioner.address[0].postalCode}} </li>
-                <li>Téléphone : {{ practitioner.telecom[0].value}}</li>
-                <li>Mail : {{ practitioner.telecom[1].value}}</li>
-                <li><button type="button" id="b" color="primary"> modifier </button></li> 
-            </ul>
+            <form>
+                Prefixe : <input type="text" name="prefixe" [(ngModel)]="practitioner.name[0].prefix[0]"><br>
+                Nom : <input type="text" name="family" [(ngModel)]="practitioner.name[0].family"><br>
+                Prénom : <input type="text" name="given" [(ngModel)]="practitioner.name[0].given[0]"><br>
+                Deuxième Prénom : <input type="text" name="givensecond" [(ngModel)]="practitioner.name[0].given[1]"><br>
+                Adresse : <input type="text" name="address" [(ngModel)]="practitioner.address[0].line[0]"><br>
+                Code postal : <input type="text" name="postalcode" [(ngModel)]="practitioner.address[0].postalCode"><br>
+                Ville : <input type="text" name="city" [(ngModel)]="practitioner.address[0].city"><br>
+                Téléphone : <input type="text" name="telephone" [(ngModel)]="practitioner.telecom[0].value"><br>
+                Mail : <input type="text" name="mail" [(ngModel)]="practitioner.telecom[1].value"><br>
+
+                <button (click)="putPractitioner()"> Modifier</button>
+            </form>
         </div>
         <button id="button" mat-raisedbutton color="primary" (click)="pageMed = false">Close</button>
     </div>
+</div>
+<div>
+
 </div>
